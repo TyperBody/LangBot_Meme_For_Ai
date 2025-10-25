@@ -1,0 +1,161 @@
+apiVersion: v1
+kind: Plugin
+metadata:
+  author: Typer_Body
+  name: meme_for_ai
+  repository: ''
+  version: 0.1.0
+  description:
+    en_US: 'Send meme for ai'
+    zh_Hans: 'AI表情包发送插件'
+  label:
+    en_US: meme_for_ai
+    zh_Hans: meme_for_ai
+  icon: assets/icon.svg  # replace in assets/icon.svg
+spec:
+  config:
+    - name: meme_information_mode #表情包发送模式
+      type: select
+      required: true
+      label:
+        en_US: meme information mode
+        zh_Hans: 表情包关键字获取方式
+      options:  # 下拉框选项，支持多语言。
+        - name: mode1  # 值
+          label:  # 显示名称，支持多语言。
+            en_US: Prompt Mode
+            zh_Hans: 提示词模式
+        - name: mode2
+          label:  # 显示名称，支持多语言。
+            en_US: api Mode
+            zh_Hans: api模式
+    - name: meme_send_mode #表情包发送模式
+      type: select
+      required: true
+      label:
+        en_US: Meme Send Mode
+        zh_Hans: 表情包发送模式
+      options:  # 下拉框选项，支持多语言。
+        - name: mode1  # 值
+          label:  # 显示名称，支持多语言。
+            en_US: Random Mode
+            zh_Hans: 纯随机模式
+        - name: mode2
+          label:  # 显示名称，支持多语言。
+            en_US: Keyword Match Mode
+            zh_Hans: 关键字匹配模式
+        - name: mode3
+          label:  # 显示名称，支持多语言。
+            en_US: Five Dimension Emotion Advanced Configuration
+            zh_Hans: 五维情绪高级配置
+    - name: meme_get_mode #表情素材获取方法
+      type: select
+      required: true
+      label:
+        en_US: Meme Get Mode
+        zh_Hans: 表情素材获取方法
+      options:  # 下拉框选项，支持多语言。
+        - name: mode1  # 值
+          label:  # 显示名称，支持多语言。
+            en_US: GitHub Repository Import
+            zh_Hans: GitHub仓库导入
+        - name: mode2
+          label:  # 显示名称，支持多语言。
+            en_US: base64 Manual Input
+            zh_Hans: base64手动输入
+    - name: Random_Mode_Probability #随机模式下的概率
+      type: integer
+      default: 100
+      label:
+        en_US: Random Mode Probability
+        zh_Hans: Random Mode Probability
+      description:
+        en_US: Random Mode Probability range:0-100 (0%-100%)
+        zh_Hans: 随机模式下的概率 范围:0-100 (0%-100%)
+    - name: Keyword_Mode_Probability #关键词模式下的概率
+      type: integer
+      default: 100
+      label:
+        en_US: Keyword Mode Probability
+        zh_Hans: Keyword Mode Probability
+      description:
+        en_US: Keyword Mode Probability range:0-100 (0%-100%)
+        zh_Hans: 关键词模式下触发的的概率 范围:0-100 (0%-100%)
+    - name: Five_Dimension_Emotion_Probability_disgust #五维情绪模式下的概率
+      type: integer
+      default: 100
+      label:
+        en_US: Five Dimension Emotion Probability - Disgust
+        zh_Hans: Five Dimension Emotion Probability - Disgust
+      description:
+        en_US: Five Dimension Emotion Probability - Disgust range:0-100 (0%-100%)
+        zh_Hans: 五维情绪模式下的厌恶概率 范围:0-100 (0%-100%)
+    - name: Five_Dimension_Emotion_Probability_joy #五维情绪模式下的概率
+      type: integer
+      default: 100
+      label:
+        en_US: Five Dimension Emotion Probability - Joy
+        zh_Hans: Five Dimension Emotion Probability - Joy
+      description:
+        en_US: Five Dimension Emotion Probability - Joy range:0-100 (0%-100%)
+        zh_Hans: 五维情绪模式下的高兴概率 范围:0-100 (0%-100%)
+    - name: Five_Dimension_Emotion_Probability_anger #五维情绪模式下的概率
+      type: integer
+      default: 100
+      label:
+        en_US: Five Dimension Emotion Probability - Anger
+        zh_Hans: Five Dimension Emotion Probability - Anger
+      description:
+        en_US: Five Dimension Emotion Probability - Anger range:0-100 (0%-100%)
+        zh_Hans: 五维情绪模式下的生气概率 范围:0-100 (0%-100%)
+    - name: Five_Dimension_Emotion_Probability_sadness #五维情绪模式下的概率
+      type: integer
+      default: 100
+      label:
+        en_US: Five Dimension Emotion Probability - Sadness
+        zh_Hans: Five Dimension Emotion Probability - Sadness
+      description:
+        en_US: Five Dimension Emotion Probability - Sadness range:0-100 (0%-100%)
+        zh_Hans: 五维情绪模式下的悲伤概率 范围:0-100 (0%-100%)
+    - name: Five_Dimension_Emotion_Probability_fear #五维情绪模式下的概率
+      type: integer
+      default: 100
+      label:
+        en_US: Five Dimension Emotion Probability - Fear
+        zh_Hans: Five Dimension Emotion Probability - Fear
+      description:
+        en_US: Five Dimension Emotion Probability - Fear range:0-100 (0%-100%)
+        zh_Hans: 五维情绪模式下的害怕概率 范围:0-100 (0%-100%)
+    - name: base64_for_json_meme #base64编码的json字符串
+      type: string
+      label:
+        en_US: base64 for json meme
+        zh_Hans: base64 for json meme
+      description:
+        en_US: base64 for json meme
+        zh_Hans: base64编码的json格式的图片
+      default: '{
+        "emotion_data": [
+          {
+            "id": 1,
+            "base64": "base64==",
+            "emotion": "高兴",
+          }
+        }'
+    - name: github_repo #github仓库地址
+      type: string
+      label:
+        en_US: GitHub Repository
+        zh_Hans: GitHub Repository
+      description:
+        en_US: GitHub Repository
+        zh_Hans: 从该仓库导入表情素材(符合标准化格式)
+      default: "https://github.com/"
+  components:
+    EventListener:
+      fromDirs:
+        - path: components/event_listener/
+execution:
+  python:
+    path: main.py
+    attr: memeforai
